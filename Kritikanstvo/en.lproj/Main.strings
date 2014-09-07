@@ -1,0 +1,9 @@
+
+/* Class = "IBUINavigationItem"; title = "Критиканство"; ObjectID = "guD-tm-byN"; */
+"guD-tm-byN.title" = "Критиканство";
+
+/* Class = "IBUINavigationItem"; title = "Поиск"; ObjectID = "lTg-4J-NDJ"; */
+"lTg-4J-NDJ.title" = "Поиск";
+
+/* Class = "IBUISearchBar"; placeholder = "Поиск"; ObjectID = "zfL-An-9I5"; */
+"zfL-An-9I5.placeholder" = "Поиск";
