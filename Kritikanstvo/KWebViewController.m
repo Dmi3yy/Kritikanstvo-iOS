@@ -21,13 +21,12 @@
 		self.titleView.text = url.host;
 		self.webView.ScalesPageToFit = YES;
 		[self.webView loadRequest:request];
+		self.barHidden = NO;
+		self.barHeight = 0;
 	}
 
 	- (void) viewWillDisappear:(BOOL) animated {
-		[super viewWillDisappear:animated];
-		[self.Utils hideIndicator];
-		[self.navigationController setNavigationBarHidden:NO animated:YES];
-		[[UIApplication sharedApplication] setStatusBarHidden:NO];
+		[self showNavigation];
 	}
 
 	- (void) webViewDidStartLoad:(UIWebView *) webView {
@@ -39,14 +38,39 @@
 	}
 
 	- (void) scrollViewDidScroll:(UIScrollView *) scrollView {
-		if (scrollView.contentOffset.y > 0 && !self.navigationController.isNavigationBarHidden) {
-			[self.navigationController setNavigationBarHidden:YES animated:YES];
-			[[UIApplication sharedApplication] setStatusBarHidden:YES];
+		if (self.barHeight == 0) {
+			CGRect navigationFrame = self.navigationController.navigationBar.frame;
+			self.barHeight = navigationFrame.size.height;
 		}
-		else if (scrollView.contentOffset.y < 0 && self.navigationController.isNavigationBarHidden) {
-			[self.navigationController setNavigationBarHidden:NO animated:YES];
-			[[UIApplication sharedApplication] setStatusBarHidden:NO];
+
+		if (scrollView.contentOffset.y > 0 && !self.barHidden) {
+			[self hideNavigation];
 		}
+		else if (scrollView.contentOffset.y < 0 && self.barHidden) {
+			[self showNavigation];
+		}
+	}
+
+	- (void) hideNavigation {
+		CGRect navigationFrame = self.navigationController.navigationBar.frame;
+
+		self.navigationItem.titleView.hidden = YES;
+		self.navigationItem.hidesBackButton = YES;
+
+		navigationFrame.size.height = 0;
+		self.navigationController.navigationBar.frame = navigationFrame;
+		self.barHidden = YES;
+	}
+
+	- (void) showNavigation {
+		CGRect navigationFrame = self.navigationController.navigationBar.frame;
+
+		self.navigationItem.titleView.hidden = NO;
+		self.navigationItem.hidesBackButton = NO;
+
+		navigationFrame.size.height = self.barHeight;
+		self.navigationController.navigationBar.frame = navigationFrame;
+		self.barHidden = NO;
 	}
 
 @end

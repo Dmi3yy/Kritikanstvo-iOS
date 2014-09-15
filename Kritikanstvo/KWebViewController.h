@@ -17,5 +17,7 @@
 	@property IBOutlet UIWebView *webView;
 	@property IBOutlet UILabel *titleView;
 	@property NSString *url;
+	@property CGFloat barHeight;
+	@property BOOL barHidden;
 
 @end

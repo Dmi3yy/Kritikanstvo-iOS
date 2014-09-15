@@ -20,8 +20,6 @@
 
 		self.Utils = [[KUtils alloc] init];
 		[self loadDetails];
-
-		self.tableView.ContentInset = UIEdgeInsetsMake(0, 0, self.parentViewController.tabBar.frame.size.height, 0);
 	}
 
 	- (void) viewWillDisappear:(BOOL) animated {
